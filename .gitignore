@@ -679,8 +679,4 @@ Temporary Items
 /CupHeroes/Recordings
 *.jpg
 *.meta
-/Fitushka/Recordings
-/Fitushka/Assets/Internal/\[COMMON\]/Sprites
-/Fitushka/HelpSprites
-/Fitushka/Assets/HelpSprites
-/RobotGame/Recordings
+
