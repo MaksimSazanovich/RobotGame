@@ -5,16 +5,9 @@ namespace Unity_one_love.RobotGame
 {
     public class PlayerMover : PlayerCommander
     {
-        private Player player;
         private Transform transform;
         
-        [Inject]
-        private void Constructor(Player player)
-        {
-            this.player = player;
-        }
-
-        private void Start()
+        protected override void Start()
         {
             transform = GetComponent<Transform>();
         }
