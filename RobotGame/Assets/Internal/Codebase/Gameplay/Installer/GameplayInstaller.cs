@@ -13,7 +13,7 @@ namespace Internal.Codebase.Gameplay.Installer
         [SerializeField] private PlayerMover playerMover;
         [SerializeField] private PlayerWaiter playerWaiter;
         [SerializeField] private PlayerRotator playerRotator;
-        [SerializeField] private PlayerShooter playerShooter;
+        [SerializeField] private ExecutionSlotsPanel executionSlotsPanel;
 
         public override void InstallBindings()
         {
@@ -24,7 +24,8 @@ namespace Internal.Codebase.Gameplay.Installer
             Container.Bind<PlayerMover>().FromInstance(playerMover).AsSingle();
             Container.Bind<PlayerWaiter>().FromInstance(playerWaiter).AsSingle();
             Container.Bind<PlayerRotator>().FromInstance(playerRotator).AsSingle();
-            Container.Bind<PlayerShooter>().FromInstance(playerShooter).AsSingle();
+            
+            Container.Bind<ExecutionSlotsPanel>().FromInstance(executionSlotsPanel).AsSingle();
         }
     }
 }

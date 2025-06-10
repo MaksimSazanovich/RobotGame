@@ -8,7 +8,6 @@ namespace Unity_one_love.RobotGame
         private PlayerMover playerMover;
         private PlayerWaiter playerWaiter;
         private PlayerRotator playerRotator;
-        private PlayerShooter playerShooter;
 
 
         private Command singleMoveCommand;
@@ -16,13 +15,10 @@ namespace Unity_one_love.RobotGame
         private Command waitCommand;
         private Command rightRotateCommand;
         private Command leftRotateCommand;
-        private Command shootCommand;
 
         [Inject]
-        private void Constructor(PlayerMover playerMover, PlayerWaiter playerWaiter, PlayerRotator playerRotator,
-            PlayerShooter playerShooter)
+        private void Constructor(PlayerMover playerMover, PlayerWaiter playerWaiter, PlayerRotator playerRotator)
         {
-            this.playerShooter = playerShooter;
             this.playerRotator = playerRotator;
             this.playerMover = playerMover;
             this.playerWaiter = playerWaiter;
@@ -62,12 +58,5 @@ namespace Unity_one_love.RobotGame
                 return new RotateCommand(playerRotator, RotationDirection.Left);
             return leftRotateCommand;
         }  
-        
-        public Command CreateShootCommand()
-        {
-            if (shootCommand == null)
-                return new ShootCommand(playerShooter);
-            return shootCommand;
-        }
     }
 }

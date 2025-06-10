@@ -4,14 +4,13 @@ using Zenject;
 
 namespace Unity_one_love.RobotGame
 {
-    public class TurnButtonsPanel : MonoBehaviour
+    public class ActionButtonsPanel : MonoBehaviour
     {
         [SerializeField] private Button singleMoveButton;
         [SerializeField] private Button doubleMoveButton;
         [SerializeField] private Button waitButton;
         [SerializeField] private Button rightRotateButton;
         [SerializeField] private Button leftRotateButton;
-        [SerializeField] private Button shootButton;
 
         [SerializeField] private Button playButton;
         
@@ -33,7 +32,6 @@ namespace Unity_one_love.RobotGame
             waitButton.onClick.AddListener(() => turnManager.AddTurn(commandFactory.CreateWaitCommand()));
             rightRotateButton.onClick.AddListener(() => turnManager.AddTurn(commandFactory.CreateRightRotateCommand()));
             leftRotateButton.onClick.AddListener(() => turnManager.AddTurn(commandFactory.CreateLeftRotateCommand()));
-            shootButton.onClick.AddListener(() => turnManager.AddTurn(commandFactory.CreateShootCommand()));
 
             playButton.onClick.AddListener(() => turnManager.Play());
         }
