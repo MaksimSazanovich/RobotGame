@@ -1,44 +1,39 @@
-using System;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
-using Zenject;
 
 namespace Unity_one_love.RobotGame
 {
-    public class Bootstrapper : MonoBehaviour
+    public class Bootstrapper
     {
+        private static Bootstrapper instance;
+
+        private DIContainer projectContainer = new DIContainer();
         private GameStateMachine gameStateMachine;
-
-        [Inject]
-        private void Constructor(GameStateMachine gameStateMachine)
+        
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
+        private static void GameEntryPoint()
         {
-            this.gameStateMachine = gameStateMachine;
+            instance = new Bootstrapper();
+            instance.RunGame();
         }
 
-        private void Awake()
+        private void RunGame()
         {
-            Init();
-        }
-
-        private void Init()
-        {
-            if (Exist())
-            {
-                Destroy(gameObject);
-            }
-
+            projectContainer.RegisterSingleton(SetUpGameStateMachine);
+            
             EnterBootstrapState();
+        }
+
+        private GameStateMachine SetUpGameStateMachine()
+        {
+            gameStateMachine = new GameStateMachine();
+            gameStateMachine.AddState(new BootstrapState(gameStateMachine));
+            return gameStateMachine;
         }
 
         private void EnterBootstrapState()
         {
+            gameStateMachine = projectContainer.Resolve<GameStateMachine>();
             gameStateMachine.Enter<BootstrapState>();
-        }
-
-        private bool Exist()
-        {
-            Bootstrapper bootstrapper = FindObjectOfType<Bootstrapper>();
-            return bootstrapper is not null && bootstrapper != this;
         }
     }
 }
