@@ -1,53 +1,39 @@
 using UnityEngine;
-using Zenject;
 
 namespace Unity_one_love.RobotGame
 {
-    public class Bootstrapper : MonoBehaviour
+    public class Bootstrapper
     {
+        private static Bootstrapper instance;
+
+        private DIContainer projectContainer = new DIContainer();
         private GameStateMachine gameStateMachine;
         
-        private DIContainer projectContainer = new DIContainer();
-
-        /*[Inject]
-        private void Constructor(GameStateMachine gameStateMachine)
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
+        private static void GameEntryPoint()
         {
-            this.gameStateMachine = gameStateMachine;
-        }*/
-
-        private void Awake()
-        {
-            projectContainer.RegisterInterface<BootstrapState, IState>(_ =>
-                new BootstrapState(gameStateMachine));
-            
-            Debug.Log(projectContainer.Resolve<IState>().ToString());
-            projectContainer.RegisterSingleton(_ => new GameStateMachine());
-            
-            gameStateMachine = projectContainer.Resolve<GameStateMachine>();
-            gameStateMachine.AddState(new BootstrapState(gameStateMachine));
-            
-            Init();
+            instance = new Bootstrapper();
+            instance.RunGame();
         }
 
-        private void Init()
+        private void RunGame()
         {
-            if (Exist())
-            {
-                Destroy(gameObject);
-            }
-
+            projectContainer.RegisterSingleton(SetUpGameStateMachine);
+            
             EnterBootstrapState();
+        }
+
+        private GameStateMachine SetUpGameStateMachine()
+        {
+            gameStateMachine = new GameStateMachine();
+            gameStateMachine.AddState(new BootstrapState(gameStateMachine));
+            return gameStateMachine;
         }
 
         private void EnterBootstrapState()
         {
+            gameStateMachine = projectContainer.Resolve<GameStateMachine>();
             gameStateMachine.Enter<BootstrapState>();
-        }
-
-        private bool Exist()
-        {
-            Bootstrapper bootstrapper = FindObjectOfType<Bootstrapper>();
-            return bootstrapper is not null && bootstrapper != this;
         }
     }
 }

@@ -9,15 +9,6 @@ namespace Unity_one_love.RobotGame
         private Dictionary<Type, IState> states = new();
         private IState currentState;
 
-        /*[Inject]
-        public GameStateMachine(BootstrapState bootstrapState)
-        {
-            states = new Dictionary<Type, IState>()
-            {
-                [typeof(BootstrapState)] = bootstrapState,
-            };
-        }*/
-
         public void AddState(IState state)
         {
             states[state.GetType()] = state;
