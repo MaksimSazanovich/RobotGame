@@ -6,7 +6,7 @@ namespace Unity_one_love.RobotGame
     {
         private static Bootstrapper instance;
 
-        private DIContainer projectContainer = new DIContainer();
+        private DIContainer projectContainer = Game.ProjectContainer;
         private GameStateMachine gameStateMachine;
         
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
@@ -19,6 +19,9 @@ namespace Unity_one_love.RobotGame
         private void RunGame()
         {
             projectContainer.RegisterSingleton(SetUpGameStateMachine);
+            projectContainer.RegisterSingleton(SetUpCoroutineRunner);
+            projectContainer.RegisterInterface<SceneLoader, ISceneLoader>(
+                () => new SceneLoader(projectContainer.Resolve<CoroutineRunner>()));
             
             EnterBootstrapState();
         }
@@ -32,6 +35,14 @@ namespace Unity_one_love.RobotGame
             gameStateMachine.AddState(new MainMenuBootState(gameStateMachine));
             
             return gameStateMachine;
+        }
+
+        private CoroutineRunner SetUpCoroutineRunner()
+        {
+            var coroutineRunner = new GameObject("CoroutineRunner").AddComponent<CoroutineRunner>();
+            Object.DontDestroyOnLoad(coroutineRunner.gameObject);
+            
+            return coroutineRunner;
         }
 
         private void EnterBootstrapState()

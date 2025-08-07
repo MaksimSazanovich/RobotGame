@@ -5,15 +5,22 @@ namespace Unity_one_love.RobotGame
     public class BootstrapState : IState
     {
         private GameStateMachine gameStateMachine;
+        private ISceneLoader sceneLoader;
 
         public BootstrapState(GameStateMachine gameStateMachine)
         {
             this.gameStateMachine = gameStateMachine;
+            sceneLoader = Game.ProjectContainer.Resolve<ISceneLoader>();
         }
         public void Enter()
         {
             Debug.Log("Enter BootstrapState");
-            gameStateMachine.Enter<LoadingState, IState>(gameStateMachine.States[typeof(MainMenuBootState)] as IState);
+            sceneLoader.LoadScene(Scenes.BOOT, OnLoaded);
+        }
+
+        private void OnLoaded()
+        {
+            gameStateMachine.Enter<LoadingState, string>(Scenes.MAIN_MENU);
         }
 
         public void Exit()

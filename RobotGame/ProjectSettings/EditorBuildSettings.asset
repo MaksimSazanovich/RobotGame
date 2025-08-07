@@ -9,10 +9,10 @@ EditorBuildSettings:
     path: Assets/External/SafeAreaCanvas/Samples/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
-    path: Assets/_Project/Scenes/0.Bootsrap.unity
+    path: Assets/_Project/Scenes/0.Bootstrap.unity
     guid: 2a6ced4b7e4ae484fb93009bd0a71870
   - enabled: 1
-    path: Assets/_Project/Scenes/1.Meta.unity
+    path: Assets/_Project/Scenes/1.MainMenu.unity
     guid: ae0f523d1eed842dd99cad28d17fd871
   - enabled: 1
     path: Assets/_Project/Scenes/2.Core.unity
