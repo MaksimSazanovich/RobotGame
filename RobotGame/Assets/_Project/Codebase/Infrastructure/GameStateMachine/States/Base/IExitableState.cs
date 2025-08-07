@@ -1,9 +1,7 @@
 namespace Unity_one_love.RobotGame
 {
-    public interface IState 
+    public interface IExitableState
     {
-        void Enter();
-
         void Exit();
     }
 }

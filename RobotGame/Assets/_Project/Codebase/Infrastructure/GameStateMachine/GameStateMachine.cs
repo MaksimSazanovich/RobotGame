@@ -1,24 +1,39 @@
 using System;
 using System.Collections.Generic;
-using Zenject;
 
 namespace Unity_one_love.RobotGame
 {
     public class GameStateMachine
     {
-        private Dictionary<Type, IState> states = new();
-        private IState currentState;
+        public Dictionary<Type, IExitableState> States {get; private set;} = new();
+        private IExitableState currentState;
 
-        public void AddState(IState state)
+        public void AddState(IExitableState state)
         {
-            states[state.GetType()] = state;
+            States[state.GetType()] = state;
         }
 
-        public void Enter<TState>() where TState : IState
+        public void Enter<TState>() where TState : class, IState
         {
+            IState state = ChangeState<TState>();
+            state.Enter();
+        }
+
+        public void Enter<TState, TArgs>(TArgs args) where TState : class, IStateWithArgs<TArgs>
+        {
+            TState state = ChangeState<TState>();
+            state.Enter(args);
+        }
+
+        private TState ChangeState<TState>() where TState : class, IExitableState
+        {
+            if (currentState == States[typeof(TState)])
+                return (TState)currentState;
+            
             currentState?.Exit();
-            currentState = states[typeof(TState)];
-            (currentState as IState)?.Enter();
+            TState state = States[typeof(TState)] as TState;
+            currentState = state;
+            return state;
         }
     }
 }
