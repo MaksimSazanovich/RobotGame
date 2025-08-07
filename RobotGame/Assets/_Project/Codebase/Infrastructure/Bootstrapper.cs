@@ -1,6 +1,4 @@
-using System;
 using UnityEngine;
-using UnityEngine.PlayerLoop;
 using Zenject;
 
 namespace Unity_one_love.RobotGame
@@ -8,15 +6,26 @@ namespace Unity_one_love.RobotGame
     public class Bootstrapper : MonoBehaviour
     {
         private GameStateMachine gameStateMachine;
+        
+        private DIContainer projectContainer = new DIContainer();
 
-        [Inject]
+        /*[Inject]
         private void Constructor(GameStateMachine gameStateMachine)
         {
             this.gameStateMachine = gameStateMachine;
-        }
+        }*/
 
         private void Awake()
         {
+            projectContainer.RegisterInterface<BootstrapState, IState>(_ =>
+                new BootstrapState(gameStateMachine));
+            
+            Debug.Log(projectContainer.Resolve<IState>().ToString());
+            projectContainer.RegisterSingleton(_ => new GameStateMachine());
+            
+            gameStateMachine = projectContainer.Resolve<GameStateMachine>();
+            gameStateMachine.AddState(new BootstrapState(gameStateMachine));
+            
             Init();
         }
 

@@ -1,3 +1,5 @@
+using UnityEngine;
+
 namespace Unity_one_love.RobotGame
 {
     public class BootstrapState : IState
@@ -10,7 +12,7 @@ namespace Unity_one_love.RobotGame
         }
         public void Enter()
         {
-            
+            Debug.Log("Bootstrap State Enter");
         }
 
         public void Exit()

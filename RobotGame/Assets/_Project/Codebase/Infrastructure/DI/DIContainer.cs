@@ -10,7 +10,7 @@ namespace Unity_one_love.RobotGame
         private Dictionary<Type, DIRegistrtaion> registrtaions = new();
         private HashSet<Type> resolutions = new();
 
-        public DIContainer(DIContainer parentContainer)
+        public DIContainer(DIContainer parentContainer = null)
         {
             this.parentContainer = parentContainer;
         }
@@ -39,6 +39,11 @@ namespace Unity_one_love.RobotGame
             };
         }
 
+        public void RegisterInterface<T, I>(Func<DIContainer, T> factory) 
+        {
+            Register(typeof(I), factory, true);
+        }
+
         private void Register<T>(Type key, Func<DIContainer, T> factory, bool isSingleton)
         {
             if (registrtaions.ContainsKey(key))
@@ -51,7 +56,7 @@ namespace Unity_one_love.RobotGame
             };
         }
 
-        public T Resolve<T>(T instance)
+        public T Resolve<T>()
         {
             var key = typeof(T);
             
@@ -79,7 +84,7 @@ namespace Unity_one_love.RobotGame
 
                 if (parentContainer != null)
                 {
-                    return parentContainer.Resolve<T>(instance);
+                    return parentContainer.Resolve<T>();
                 }
             }
             finally
