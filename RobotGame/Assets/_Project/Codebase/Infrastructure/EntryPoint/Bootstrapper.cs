@@ -26,7 +26,11 @@ namespace Unity_one_love.RobotGame
         private GameStateMachine SetUpGameStateMachine()
         {
             gameStateMachine = new GameStateMachine();
+            
             gameStateMachine.AddState(new BootstrapState(gameStateMachine));
+            gameStateMachine.AddState(new LoadingState(gameStateMachine));
+            gameStateMachine.AddState(new MainMenuBootState(gameStateMachine));
+            
             return gameStateMachine;
         }
 
