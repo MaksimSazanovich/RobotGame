@@ -1,2 +1,2 @@
-Самописный DI
-PrimeTween
+* Самописный DI
+* PrimeTween
