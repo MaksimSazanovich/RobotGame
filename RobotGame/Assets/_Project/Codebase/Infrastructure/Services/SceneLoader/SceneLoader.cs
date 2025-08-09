@@ -1,17 +1,21 @@
 using System;
 using System.Collections;
+using Core;
+using DI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Unity_one_love.RobotGame
+namespace Services.SceneLoader
 {
     public class SceneLoader : ISceneLoader
     {
-        private CoroutineRunner coroutineRunner;
+        private readonly DIContainer projectContainer;
+        private readonly CoroutineRunner coroutineRunner;
 
-        public SceneLoader(CoroutineRunner coroutineRunner)
+        public SceneLoader()
         {
-            this.coroutineRunner = coroutineRunner;
+            projectContainer = Game.ProjectContainer;
+            coroutineRunner = projectContainer.Resolve<CoroutineRunner>();
         }
         
         public void LoadScene(string sceneName, Action onLoaded = null)

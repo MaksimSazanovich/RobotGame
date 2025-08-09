@@ -1,6 +1,13 @@
+using AssetMenegement;
+using Core;
+using DI;
+using Infrastructure.Factories;
+using Services.Curtain;
+using Services.SceneLoader;
+using States;
 using UnityEngine;
 
-namespace Unity_one_love.RobotGame
+namespace EntryPoint
 {
     public class Bootstrapper
     {
@@ -20,8 +27,10 @@ namespace Unity_one_love.RobotGame
         {
             projectContainer.RegisterSingleton(SetUpGameStateMachine);
             projectContainer.RegisterSingleton(SetUpCoroutineRunner);
-            projectContainer.RegisterInterface<SceneLoader, ISceneLoader>(
-                () => new SceneLoader(projectContainer.Resolve<CoroutineRunner>()));
+            projectContainer.RegisterInterface<SceneLoader, ISceneLoader>(() => new SceneLoader());
+            projectContainer.RegisterInterface<AssetProvider, IAssetProvider>(() => new AssetProvider());
+            projectContainer.RegisterInterface<UIFactory, IUIFactory>(() => new UIFactory());
+            projectContainer.RegisterInterface<CurtainService, ICurtainService>(() => new CurtainService());
             
             EnterBootstrapState();
         }

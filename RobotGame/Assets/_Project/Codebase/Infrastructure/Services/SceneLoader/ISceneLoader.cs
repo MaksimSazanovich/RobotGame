@@ -1,6 +1,6 @@
 using System;
 
-namespace Unity_one_love.RobotGame
+namespace Services.SceneLoader
 {
     public interface ISceneLoader
     {

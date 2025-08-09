@@ -1,17 +1,28 @@
+using Core;
+using DI;
+using Services.Curtain;
+using Services.SceneLoader;
 using UnityEngine;
 
-namespace Unity_one_love.RobotGame
+namespace States
 {
-    public class LoadingState : IStateWithArgs<string>
+    public class LoadingState : IPayloadState<string>
     {
-        private GameStateMachine gameStateMachine;
-        private ISceneLoader sceneLoader;
+        private readonly DIContainer projectContainer;
+        
+        private readonly GameStateMachine gameStateMachine;
+        private readonly ISceneLoader sceneLoader;
+        private readonly ICurtainService curtain;
+        
         private string sceneName;
 
         public LoadingState(GameStateMachine gameStateMachine)
         {
             this.gameStateMachine = gameStateMachine;
-            sceneLoader = Game.ProjectContainer.Resolve<ISceneLoader>();
+            projectContainer = Game.ProjectContainer;
+            
+            sceneLoader = projectContainer.Resolve<ISceneLoader>();
+            curtain = projectContainer.Resolve<ICurtainService>();
         }
 
         public void Enter(string sceneName)
@@ -19,7 +30,7 @@ namespace Unity_one_love.RobotGame
             Debug.Log("Enter LoadingState");
             this.sceneName = sceneName;
             
-            //ShowCurtain();
+            curtain.Show();
             
             sceneLoader.LoadScene(sceneName, OnLoaded);
         }
@@ -35,7 +46,7 @@ namespace Unity_one_love.RobotGame
         public void Exit()
         {
             Debug.Log("Exit LoadingState");
-            //HideCurtain();
+            curtain.Hide();
         }
     }
 }

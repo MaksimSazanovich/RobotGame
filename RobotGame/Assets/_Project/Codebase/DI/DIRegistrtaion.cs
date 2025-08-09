@@ -1,6 +1,6 @@
 using System;
 
-namespace Unity_one_love.RobotGame
+namespace DI
 {
     public class DIRegistrtaion
     {

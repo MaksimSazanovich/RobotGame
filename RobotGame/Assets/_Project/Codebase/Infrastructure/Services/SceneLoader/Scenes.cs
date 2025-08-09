@@ -1,6 +1,6 @@
-namespace Unity_one_love.RobotGame
+namespace Services.SceneLoader
 {
-    public struct Scenes
+    public static class Scenes
     {
         public const string BOOT = "0.Bootstrap";
         public const string MAIN_MENU = "1.MainMenu";

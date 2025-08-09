@@ -1,4 +1,4 @@
-namespace Unity_one_love.RobotGame
+namespace States
 {
     public interface IState : IExitableState
     {

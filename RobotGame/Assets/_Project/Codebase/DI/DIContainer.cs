@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Unity_one_love.RobotGame
+namespace DI
 {
     public class DIContainer
     {

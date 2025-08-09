@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Unity_one_love.RobotGame
+namespace States
 {
     public class GameStateMachine
     {
@@ -19,7 +19,7 @@ namespace Unity_one_love.RobotGame
             state.Enter();
         }
 
-        public void Enter<TState, TArgs>(TArgs args) where TState : class, IStateWithArgs<TArgs>
+        public void Enter<TState, TPayload>(TPayload args) where TState : class, IPayloadState<TPayload>
         {
             TState state = ChangeState<TState>();
             state.Enter(args);
