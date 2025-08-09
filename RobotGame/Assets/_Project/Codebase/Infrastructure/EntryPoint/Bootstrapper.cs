@@ -3,6 +3,7 @@ using Core;
 using DI;
 using Infrastructure.Factories;
 using Services.Curtain;
+using Services.Disposables;
 using Services.Pause;
 using Services.SceneLoader;
 using States;
@@ -33,10 +34,14 @@ namespace EntryPoint
             projectContainer.RegisterInterface<UIFactory, IUIFactory>(() => new UIFactory());
             projectContainer.RegisterInterface<CurtainService, ICurtainService>(() => new CurtainService());
             
+            projectContainer.RegisterSingleton(() => new CompositeDisposable());
+            
             //TODO: Перенести сервис паузы в бутстраппер геймплея
             projectContainer.RegisterSingleton(() => new PauseRepository());
             projectContainer.RegisterInterface<PauseService, IPauseService>(() =>
                 new PauseService());
+            
+            projectContainer.Resolve<CompositeDisposable>().Register(projectContainer.Resolve<PauseRepository>());
             
             EnterBootstrapState();
         }
