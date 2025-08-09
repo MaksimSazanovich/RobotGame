@@ -27,6 +27,8 @@ namespace EntryPoint
 
         private void RunGame()
         {
+            Game.Init();
+            
             projectContainer.RegisterSingleton(SetUpGameStateMachine);
             projectContainer.RegisterSingleton(SetUpCoroutineRunner);
             projectContainer.RegisterInterface<SceneLoader, ISceneLoader>(() => new SceneLoader());

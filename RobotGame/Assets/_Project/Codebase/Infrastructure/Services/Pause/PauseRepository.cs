@@ -36,7 +36,7 @@ namespace Services.Pause
             if(Pausables.Count <= 0)
                 return;
 
-            foreach (var pausable in Pausables.Where(pausable => pausable != null))
+            foreach (var pausable in Pausables.Where(pausable => pausable != null).ToList())
             {
                 Unregister(pausable);
             }

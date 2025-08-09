@@ -39,7 +39,7 @@ namespace Services.Disposables
             if (Disposables.Count <= 0)
                 return;
 
-            foreach (var disposable in Disposables.Where(disposable => disposable != null))
+            foreach (var disposable in Disposables.Where(disposable => disposable != null).ToList())
             {
                 Unregister(disposable);
             }
