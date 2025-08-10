@@ -3,7 +3,7 @@ using Core;
 using DI;
 using Infrastructure.Factories;
 using Services.Curtain;
-using Services.Disposables;
+using Services.CompositeDisposable;
 using Services.Pause;
 using Services.SceneLoader;
 using States;
@@ -15,7 +15,7 @@ namespace EntryPoint
     {
         private static Bootstrapper instance;
 
-        private DIContainer projectContainer = Game.ProjectContainer;
+        private readonly DIContainer projectContainer = Game.ProjectContainer;
         private GameStateMachine gameStateMachine;
         
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
@@ -45,6 +45,8 @@ namespace EntryPoint
             
             projectContainer.Resolve<CompositeDisposable>().Register(projectContainer.Resolve<PauseRepository>());
             
+            //projectContainer.RegisterInstance(Object.FindAnyObjectByType<MainMenu.Bootstrapper>(), Tags.MAIN_MENU_BOOTSTRAPPER);
+            
             EnterBootstrapState();
         }
 
@@ -55,6 +57,8 @@ namespace EntryPoint
             gameStateMachine.AddState(new BootstrapState(gameStateMachine));
             gameStateMachine.AddState(new LoadingState(gameStateMachine));
             gameStateMachine.AddState(new MainMenuBootState(gameStateMachine));
+            gameStateMachine.AddState(new MainMenuState(gameStateMachine));
+            gameStateMachine.AddState(new GamePlayBootState(gameStateMachine));
             
             return gameStateMachine;
         }

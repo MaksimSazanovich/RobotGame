@@ -6,12 +6,12 @@ using UnityEngine;
 
 namespace States
 {
-    public class MainMenuBootState : IState
+    public class GamePlayBootState : IState
     {
         private readonly GameStateMachine gameStateMachine;
         private readonly DIContainer projectContainer;
 
-        public MainMenuBootState(GameStateMachine gameStateMachine)
+        public GamePlayBootState(GameStateMachine gameStateMachine)
         {
             this.gameStateMachine = gameStateMachine;
             projectContainer = Game.ProjectContainer;
@@ -19,12 +19,11 @@ namespace States
         
         public void Enter()
         {
-            Object.FindAnyObjectByType<Bootstrapper>().Init();
+            //Object.FindAnyObjectByType<Bootstrapper>().Init();
         }
 
         public void Exit()
         {
-            Debug.Log("Main Menu Boot State Exit");
             projectContainer.Resolve<ICurtainService>().Hide();
         }
     }

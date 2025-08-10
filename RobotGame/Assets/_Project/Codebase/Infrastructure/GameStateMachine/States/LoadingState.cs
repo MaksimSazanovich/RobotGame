@@ -32,7 +32,7 @@ namespace States
             
             curtain.Show();
             
-            sceneLoader.LoadScene(sceneName, OnLoaded);
+            sceneLoader.LoadScene(Scenes.EMPTY, () => sceneLoader.LoadScene(sceneName, OnLoaded));
         }
 
         private void OnLoaded()
@@ -40,13 +40,13 @@ namespace States
             switch(sceneName)
             {
                 case Scenes.MAIN_MENU: gameStateMachine.Enter<MainMenuBootState>(); break;
+                case Scenes.CORE: gameStateMachine.Enter<GamePlayBootState>(); break;
             }
         }
 
         public void Exit()
         {
             Debug.Log("Exit LoadingState");
-            curtain.Hide();
         }
     }
 }

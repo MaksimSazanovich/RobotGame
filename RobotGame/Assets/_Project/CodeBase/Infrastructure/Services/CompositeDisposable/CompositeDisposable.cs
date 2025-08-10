@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Services.Disposables
+namespace Services.CompositeDisposable
 {
     public class CompositeDisposable : IDisposable
     {

@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: LoadingCurtainConfig
   m_EditorClassIdentifier: 
   <CurtainPrefab>k__BackingField: {fileID: 2656777481686759600, guid: d4273a8a0d51746baaf1a67a2d08294a, type: 3}
-  <ShowDuration>k__BackingField: 1
+  <ShowDuration>k__BackingField: 0
   <HideDuration>k__BackingField: 1

@@ -1,5 +1,5 @@
 using DI;
-using Services.Disposables;
+using Services.CompositeDisposable;
 using UnityEngine;
 
 namespace Core

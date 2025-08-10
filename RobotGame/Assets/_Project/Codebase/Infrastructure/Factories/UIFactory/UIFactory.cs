@@ -20,7 +20,6 @@ namespace Infrastructure.Factories
         public LoadingCurtain CreateLoadingCurtain()
         {
             var config = assetProvider.LoadCurtainConfig();
-            Debug.Log(config);
             var curtain = Object.Instantiate(config.CurtainPrefab).GetComponent<LoadingCurtain>();
             
             curtain.Init(config.ShowDuration, config.HideDuration);
