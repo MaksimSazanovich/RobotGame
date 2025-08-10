@@ -7,8 +7,8 @@ namespace DI
     {
         private DIContainer parentContainer;
 
-        private Dictionary<Type, DIRegistrtaion> registrtaions = new();
-        private HashSet<Type> resolutions = new();
+        private Dictionary<(Type, string), DIRegistrtaion> registrtaions = new();
+        private HashSet<(Type, string)> resolutions = new();
 
         public DIContainer(DIContainer parentContainer = null)
         {
@@ -17,17 +17,41 @@ namespace DI
 
         public void RegisterSingleton<T>(Func<T> factory)
         {
-            Register(typeof(T), factory, true);
+            Register((typeof(T), null), factory, true);
+        }
+        
+        public void RegisterSingleton<T>(Func<T> factory, string tag)
+        {
+            Register((typeof(T), tag), factory, true);
         }
 
         public void RegisterTransient<T>(Func<T> factory)
         {
-            Register(typeof(T), factory, false);
+            Register((typeof(T), null), factory, false);
+        }
+        
+        public void RegisterTransient<T>(Func<T> factory, string tag)
+        {
+            Register((typeof(T), tag), factory, false);
         }
 
         public void RegisterInstance<T>(T instance)
         {
-            var key = typeof(T);
+            (Type, string) key = (typeof(T), null);
+
+            if (registrtaions.ContainsKey(key))
+                throw new Exception($"Duplicate key: {key}");
+
+            registrtaions[key] = new()
+            {
+                IsSingleton = true,
+                Instance = instance
+            };
+        }
+        
+        public void RegisterInstance<T>(T instance, string tag)
+        {
+            var key = (typeof(T), tag);
 
             if (registrtaions.ContainsKey(key))
                 throw new Exception($"Duplicate key: {key}");
@@ -41,10 +65,15 @@ namespace DI
 
         public void RegisterInterface<T, I>(Func<T> factory) where T : I
         {
-            Register(typeof(I), factory, true);
+            Register((typeof(I), null), factory, true);
+        }
+        
+        public void RegisterInterface<T, I>(Func<T> factory, string tag) where T : I
+        {
+            Register((typeof(I), tag), factory, true);
         }
 
-        private void Register<T>(Type key, Func<T> factory, bool isSingleton)
+        private void Register<T>((Type, string) key, Func<T> factory, bool isSingleton)
         {
             if (registrtaions.ContainsKey(key))
                 throw new Exception($"Instance with key: {key} also has already been registered");
@@ -56,9 +85,9 @@ namespace DI
             };
         }
 
-        public T Resolve<T>()
+        public T Resolve<T>(string tag = null)
         {
-            var key = typeof(T);
+            var key = (typeof(T), tag);
             
             if(resolutions.Contains(key))
                 throw new Exception($"Cyclic dependency for key: {key}");
