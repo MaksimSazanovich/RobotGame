@@ -1,7 +1,4 @@
-using System;
-using System.Collections;
 using UnityEngine;
-using Zenject;
 
 namespace Unity_one_love.RobotGame
 {

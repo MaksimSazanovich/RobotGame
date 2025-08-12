@@ -5,7 +5,7 @@ namespace Unity_one_love.RobotGame
 {
     public class DoubleMoveCommand : MoveCommand
     {
-        private float waitingTime;
+        private float waitingTime = 0.5f;
 
         public DoubleMoveCommand(PlayerMover playerMover)
         {
@@ -21,7 +21,6 @@ namespace Unity_one_love.RobotGame
         {
             var dir = GetVectorDirection();
             playerMover.Move(dir.x, dir.y);
-            waitingTime = 0.5f;
             yield return new WaitForSeconds(waitingTime);
             playerMover.Move(dir.x, dir.y);
         }

@@ -6,7 +6,6 @@ namespace Unity_one_love.RobotGame
 {
     public class TurnManager : MonoBehaviour
     {
-
         private List<Command> turns = new();
 
         public void AddTurn(Command command)
@@ -26,6 +25,8 @@ namespace Unity_one_love.RobotGame
                 command.Execute();
                 yield return new WaitUntil(command.GetPlayerCommander().IsFinished);
             }
+            
+            turns.Clear();
         }
     }
 }

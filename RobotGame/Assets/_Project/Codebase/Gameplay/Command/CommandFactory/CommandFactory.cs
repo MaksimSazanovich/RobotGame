@@ -1,14 +1,12 @@
-using UnityEngine;
 using Zenject;
 
 namespace Unity_one_love.RobotGame
 {
-    public class CommandFactory : MonoBehaviour
+    public class CommandFactory 
     {
         private PlayerMover playerMover;
         private PlayerWaiter playerWaiter;
         private PlayerRotator playerRotator;
-
 
         private Command singleMoveCommand;
         private Command doubleMoveCommand;

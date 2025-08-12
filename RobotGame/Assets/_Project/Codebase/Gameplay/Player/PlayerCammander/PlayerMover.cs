@@ -1,5 +1,4 @@
 using UnityEngine;
-using Zenject;
 
 namespace Unity_one_love.RobotGame
 {
@@ -7,14 +6,6 @@ namespace Unity_one_love.RobotGame
     {
         [SerializeField] private float stepLength;
         
-        
-        private Transform transform;
-        
-        protected override void Start()
-        {
-            transform = GetComponent<Transform>();
-        }
-
         public MoveDirection GetCurrentDirection()
         {
             return player.CurrentDirection;

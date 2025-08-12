@@ -7,9 +7,9 @@ namespace Internal.Codebase.Gameplay.Installer
     public class GameplayInstaller : MonoInstaller
     {
         [SerializeField] private TurnManager turnManager;
-        [SerializeField] private CommandFactory commandFactory;
         [SerializeField] private Player player;
-        
+        private CommandFactory commandFactory;
+
         [SerializeField] private PlayerMover playerMover;
         [SerializeField] private PlayerWaiter playerWaiter;
         [SerializeField] private PlayerRotator playerRotator;
@@ -18,7 +18,7 @@ namespace Internal.Codebase.Gameplay.Installer
         public override void InstallBindings()
         {
             Container.Bind<TurnManager>().FromInstance(turnManager).AsSingle();
-            Container.Bind<CommandFactory>().FromInstance(commandFactory).AsSingle();
+            Container.Bind<CommandFactory>().AsSingle();
             Container.Bind<Player>().FromInstance(player).AsSingle();
             
             Container.Bind<PlayerMover>().FromInstance(playerMover).AsSingle();

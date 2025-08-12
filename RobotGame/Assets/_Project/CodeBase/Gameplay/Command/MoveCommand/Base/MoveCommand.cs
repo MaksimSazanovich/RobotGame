@@ -15,18 +15,19 @@ namespace Unity_one_love.RobotGame
             switch (playerMover.GetCurrentDirection())
             {
                 case MoveDirection.Up:
-                    vector = new Vector2Int(0, 1);
+                    vector = Vector2Int.up;
                     break;
                 case MoveDirection.Down:
-                    vector = new Vector2Int(0, -1);
+                    vector = Vector2Int.down;
                     break;
                 case MoveDirection.Left:
-                    vector = new Vector2Int(-1, 0);
+                    vector = Vector2Int.left;
                     break;
                 case MoveDirection.Right:
-                    vector = new Vector2Int(1, 0);
+                    vector = Vector2Int.right;
                     break;
             }
+
             return vector;
         }
     }

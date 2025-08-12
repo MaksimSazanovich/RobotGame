@@ -14,7 +14,6 @@ namespace Unity_one_love.RobotGame
 
         [SerializeField] private Button playButton;
         
-        
         private TurnManager turnManager;
         private CommandFactory commandFactory;
 

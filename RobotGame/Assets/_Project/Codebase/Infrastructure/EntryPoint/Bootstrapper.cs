@@ -18,7 +18,7 @@ namespace EntryPoint
         private readonly DIContainer projectContainer = Game.ProjectContainer;
         private GameStateMachine gameStateMachine;
         
-        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
+        //[RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         private static void GameEntryPoint()
         {
             instance = new Bootstrapper();
